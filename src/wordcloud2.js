@@ -162,6 +162,7 @@ if (!window.clearImmediate) {
       weightFactor: 1,
       clearCanvas: true,
       backgroundColor: '#fff',  // opaque white = rgba(255, 255, 255, 1)
+      fillShape: true,
 
       gridSize: 8,
       origin: null,
@@ -792,6 +793,8 @@ if (!window.clearImmediate) {
             grid[gx][gy] = true;
           }
         }
+// **** prefill grid with custom shape
+
       } else {
         /* Determine bgPixel by creating
            another canvas and fill the specified background color */
@@ -818,14 +821,14 @@ if (!window.clearImmediate) {
                 while (i--) {
                   if (imageData[((gy * g + y) * ngx * g +
                                  (gx * g + x)) * 4 + i] !== bgPixel[i]) {
-                    grid[gx][gy] = false;
+                    grid[gx][gy] = (settings.fillShape ? true : false) ; 
                     break singleGridLoop;
-                  }
+                  } 
                 }
               }
             }
-            if (grid[gx][gy] !== false) {
-              grid[gx][gy] = true;
+            if (grid[gx][gy] !== (settings.fillShape ? true : false)) {
+              grid[gx][gy] = (settings.fillShape ? false : true);
             }
           }
         }
